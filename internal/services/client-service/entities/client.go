@@ -7,11 +7,11 @@ import (
 )
 
 type Client struct {
-	Id             uuid.UUID        `json:"id"`
-	Name           string           `json:"name"`
-	BirthDate      time.Time        `json:"birth_date"`
-	Sexo           string           `json:"sexo"`
-	HealthProblems []HealthProblems `json:"health_problems"`
-	CreatedAt      time.Time        `json:"created_at"`
-	UpdatedAt      time.Time        `json:"updated_at"`
+	Id             uuid.UUID         `json:"id"`
+	Name           string            `json:"name"`
+	BirthDate      time.Time         `json:"birth_date"`
+	Sexo           string            `json:"sexo"`
+	HealthProblems []*HealthProblems `json:"health_problems"`
+	CreatedAt      time.Time         `json:"created_at"`
+	UpdatedAt      time.Time         `json:"updated_at"`
 }
