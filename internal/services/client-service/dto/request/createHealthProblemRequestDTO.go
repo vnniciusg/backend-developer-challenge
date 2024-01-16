@@ -1,6 +1,9 @@
 package request
 
+import "github.com/google/uuid"
+
 type CreateHealthProblemRequestDTO struct {
-	Name string `json:"name"`
-	Grau int    `json:"grau"`
+	ClientId uuid.UUID `json:"client_id"`
+	Name     string    `json:"name"`
+	Grau     int       `json:"grau"`
 }
