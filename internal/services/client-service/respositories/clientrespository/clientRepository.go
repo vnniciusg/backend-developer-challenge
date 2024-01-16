@@ -1,4 +1,4 @@
-package respositories
+package clientrespository
 
 import (
 	"github.com/google/uuid"
