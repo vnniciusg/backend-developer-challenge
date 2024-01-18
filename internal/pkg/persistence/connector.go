@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 
+	_ "github.com/lib/pq"
+
 	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/viper/configs"
 )
 
