@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: db
+    image: postgres
+    restart: always
+    environment:
+        POSTGRES_USER: ${DB_USER}
+        POSTGRES_PASSWORD: ${DB_PASS}
+        POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - backend-challenger-network
+
+  go-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: go-api
+    container_name: go-api
+    env_file: .env
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - backend-challenger-network
+
+volumes:
+  db_data:
+
+networks:
+  backend-challenger-network:
+    driver: bridge
+
+    
