@@ -1,9 +1,16 @@
 package main
 
 import (
+	"fmt"
+
+	_ "github.com/lib/pq"
+
+	_ "github.com/vnniciusg/backend-developer-challenge/docs"
+
 	"github.com/gin-gonic/gin"
 	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/http"
 	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/persistence"
+	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/persistence/utils"
 )
 
 // @title Backend Developer Challenger API Docs
@@ -18,14 +25,22 @@ func main() {
 	conn, err := persistence.GetConnection()
 
 	if err != nil {
-		println(err.Error())
+		fmt.Printf("Error connecting to the database: %s\n", err.Error())
+		panic(err.Error())
 	}
 
 	defer conn.Close()
+
+	utils.RunMigrations()
 
 	router := gin.Default()
 
 	server := http.NewServer("8080", router, conn)
 
-	server.Run()
+	err = server.Run()
+
+	if err != nil {
+		fmt.Printf("Error running server: %s\n", err.Error())
+		panic(err.Error())
+	}
 }

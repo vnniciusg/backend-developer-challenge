@@ -3,6 +3,9 @@ package http
 import (
 	"database/sql"
 
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+
 	"github.com/gin-gonic/gin"
 	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/http/responseshttp"
 	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/http/routes"
@@ -36,9 +39,11 @@ func (s *Server) InitRoutes() {
 		return
 	})
 
+	v1.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
 	routes.ClientRoutes(s.DB, v1)
 }
 
 func (s *Server) Run() error {
-	return s.Router.Run(s.HttpPort)
+	return s.Router.Run(":" + s.HttpPort)
 }
