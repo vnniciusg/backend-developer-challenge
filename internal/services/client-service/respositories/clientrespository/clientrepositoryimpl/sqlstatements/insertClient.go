@@ -12,7 +12,6 @@ const InsertClient = `
 		$2,
 		$3,
 		$4,
-		$5,
-		$6
+		$5
 	) RETURNING id, name, birth_date, sexo , created_at, updated_at;
 `
