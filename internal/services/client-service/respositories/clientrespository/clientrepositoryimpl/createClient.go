@@ -11,7 +11,7 @@ import (
 	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/respositories/healthproblemrepository"
 )
 
-func (cr *ClientRepositoryImpl) CreateClient(client *request.CreateClientRequestDTO) (*entities.Client, error) {
+func (cr *ClientRepository) CreateClient(client *request.CreateClientRequestDTO) (*entities.Client, error) {
 
 	var clientResponse *entities.Client
 

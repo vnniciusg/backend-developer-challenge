@@ -2,10 +2,10 @@ package clientrepositoryimpl
 
 import "database/sql"
 
-type ClientRepositoryImpl struct {
+type ClientRepository struct {
 	DB *sql.DB
 }
 
-func NewClientRepositoryImpl(db *sql.DB) *ClientRepositoryImpl {
-	return &ClientRepositoryImpl{DB: db}
+func NewClientRepository(db *sql.DB) *ClientRepository {
+	return &ClientRepository{DB: db}
 }
