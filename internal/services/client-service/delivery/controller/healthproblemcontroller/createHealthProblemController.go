@@ -14,11 +14,11 @@ import (
 // @Accept  json
 // @Produce  json
 // @Param id path string true "Client id"
-// @Param body body CreateHealthProblemRequestDTO true "body"
-// @Success 201 {object} string "Problema(s) de saúde criado(s) com sucesso"
-// @Failure 400 {object} string "Erro de validação"
-// @Failure 500 {object} string "Falha ao criar problema de saúde"
-// @Router api/v1/health-problems/{clientId} [post]
+// @Param HealthProblem body []request.CreateHealthProblemRequestDTO true "HealthProblem body"
+// @Success 201 {object} responseshttp.RestSuccess "Problema(s) de saúde criado(s) com sucesso"
+// @Failure 400 {object} responseshttp.RestErr "Erro de validação"
+// @Failure 500 {object} responseshttp.RestErr "Falha ao criar problema de saúde"
+// @Router /api/v1/health-problems/{clientId} [post]
 func (hpc *HealProblemsController) CreateHealthProblem(c *gin.Context) {
 
 	clientId, err := uuid.Parse(c.Param("clientId"))
