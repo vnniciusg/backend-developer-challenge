@@ -2,6 +2,7 @@ package clientrepositoryimpl
 
 import (
 	"database/sql"
+	"errors"
 
 	"time"
 
@@ -9,13 +10,13 @@ import (
 	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/persistence/utils"
 	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/dto/request"
 	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/entities"
-	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/respositories/clientrespository/clientrepositoryimpl/sqlstatements"
-	healproblemssqlstatements "github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/respositories/healthproblemrepository/sqlstatements"
+	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/respositories/sqlstatements/clientsqlstatements"
+	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/respositories/sqlstatements/healthproblemsqlstatements"
 )
 
 func (cr *ClientRepository) CreateClient(client *request.CreateClientRequestDTO) (*entities.Client, error) {
 
-	var clientResponse *entities.Client
+	var createdClient *entities.Client
 
 	err := utils.WithTransaction(cr.DB, func(tx *sql.Tx) error {
 
@@ -27,35 +28,23 @@ func (cr *ClientRepository) CreateClient(client *request.CreateClientRequestDTO)
 
 		updated_at := created_at
 
-		layout := "02/01/2006"
+		birthDate, err := date.ParseDate(client.BirthDate)
 
-		BirthDate, err := time.Parse(layout, client.BirthDate)
+		if err != nil {
+			return errors.New("Falha ao converter data de nascimento")
+		}
+
+		createdClient, err = insertClient(tx, client.Name, birthDate, client.Sexo, created_at, updated_at)
 
 		if err != nil {
 			return err
 		}
 
-		row := tx.QueryRow(sqlstatements.InsertClient, client.Name, BirthDate, client.Sexo, created_at, updated_at)
-
-		clientResponse = &entities.Client{}
-
-		err = row.Scan(&clientResponse.Id, &clientResponse.Name, &clientResponse.BirthDate, &clientResponse.Sexo, &clientResponse.CreatedAt, &clientResponse.UpdatedAt)
-		if err != nil {
-			return err
-		}
 		for _, healthProblem := range client.HealthProblems {
-
-			healthProblemResponse := &entities.HealthProblems{}
-
-			row := tx.QueryRow(healproblemssqlstatements.InsertHealthProblem, clientResponse.Id, healthProblem.Name, healthProblem.Grau, created_at, updated_at)
-
-			err = row.Scan(&healthProblemResponse.Id, &healthProblemResponse.ClientId, &healthProblemResponse.Name, &healthProblemResponse.Grau, &healthProblemResponse.CreatedAt, &healthProblemResponse.UpdatedAt)
-
+			err = insertHealthProblem(tx, createdClient, healthProblem, created_at, updated_at)
 			if err != nil {
 				return err
 			}
-
-			clientResponse.HealthProblems = append(clientResponse.HealthProblems, healthProblemResponse)
 
 		}
 
@@ -63,5 +52,31 @@ func (cr *ClientRepository) CreateClient(client *request.CreateClientRequestDTO)
 
 	})
 
-	return clientResponse, err
+	return createdClient, err
+}
+
+func insertClient(tx *sql.Tx, name string, birthDate time.Time, sexo string, createdAt time.Time, updatedAt time.Time) (*entities.Client, error) {
+	row := tx.QueryRow(clientsqlstatements.InsertClient, name, birthDate, sexo, createdAt, updatedAt)
+
+	createdClient := &entities.Client{}
+
+	if err := row.Scan(&createdClient.Id, &createdClient.Name, &createdClient.BirthDate, &createdClient.Sexo, &createdClient.CreatedAt, &createdClient.UpdatedAt); err != nil {
+		return nil, err
+	}
+
+	return createdClient, nil
+}
+
+func insertHealthProblem(tx *sql.Tx, client *entities.Client, healthProblem *request.CreateHealthProblemRequestDTO, createdAt time.Time, updatedAt time.Time) error {
+	healthProblemResponse := &entities.HealthProblems{}
+
+	row := tx.QueryRow(healthproblemsqlstatements.InsertHealthProblem, client.Id, healthProblem.Name, healthProblem.Grau, createdAt, updatedAt)
+
+	if err := row.Scan(&healthProblemResponse.Id, &healthProblemResponse.ClientId, &healthProblemResponse.Name, &healthProblemResponse.Grau, &healthProblemResponse.CreatedAt, &healthProblemResponse.UpdatedAt); err != nil {
+		return err
+	}
+
+	client.HealthProblems = append(client.HealthProblems, healthProblemResponse)
+
+	return nil
 }

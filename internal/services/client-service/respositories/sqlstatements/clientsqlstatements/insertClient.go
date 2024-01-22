@@ -1,4 +1,4 @@
-package sqlstatements
+package clientsqlstatements
 
 const InsertClient = `
 	INSERT INTO tb_clients (

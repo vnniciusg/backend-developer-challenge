@@ -1,4 +1,4 @@
-package sqlstatements
+package healthproblemsqlstatements
 
 const InsertHealthProblem = `
 	INSERT INTO tb_health_problems 
