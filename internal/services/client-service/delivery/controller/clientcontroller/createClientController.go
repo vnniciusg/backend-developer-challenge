@@ -37,7 +37,7 @@ func (cc *ClientController) CreateClient(c *gin.Context) {
 		return
 	}
 
-	client, err := cc.clientUseCase.CreateClient(request)
+	err = cc.clientUseCase.CreateClient(request)
 
 	if err != nil {
 		restError := responseshttp.NewInternalServerError("Erro ao criar cliente")
@@ -45,6 +45,6 @@ func (cc *ClientController) CreateClient(c *gin.Context) {
 		return
 	}
 
-	restSuccess := responseshttp.NewCreated("Cliente criado com sucesso", client)
+	restSuccess := responseshttp.NewCreated("Cliente criado com sucesso", nil)
 	c.JSON(restSuccess.Code, restSuccess)
 }
