@@ -42,6 +42,7 @@ func (s *Server) InitRoutes() {
 	v1.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	routes.ClientRoutes(s.DB, v1)
+	routes.HealthProblemRoutes(s.DB, v1)
 }
 
 func (s *Server) Run() error {
