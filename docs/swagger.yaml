@@ -74,6 +74,10 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/responseshttp.RestErr'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responseshttp.RestErr'
         "500":
           description: Internal Server Error
           schema:
@@ -110,6 +114,39 @@ paths:
       summary: Criar um novo cliente
       tags:
       - client
+  /api/v1/clients/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Busca um cliente pelo id
+      parameters:
+      - description: Id do cliente
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responseshttp.RestSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responseshttp.RestErr'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responseshttp.RestErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/responseshttp.RestErr'
+      summary: Busca um cliente pelo id
+      tags:
+      - Clientes
 schemes:
 - http
 swagger: "2.0"

@@ -13,6 +13,7 @@ import (
 // @Produce  json
 // @Success 200 {object} responseshttp.RestSuccess
 // @Failure 400 {object} responseshttp.RestErr
+// @Failure 404 {object} responseshttp.RestErr
 // @Failure 500 {object} responseshttp.RestErr
 // @Router /api/v1/clients [get]
 func (cc *ClientController) FindAllClients(c *gin.Context) {

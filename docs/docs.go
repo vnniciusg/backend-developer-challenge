@@ -47,6 +47,12 @@ const docTemplate = `{
                             "$ref": "#/definitions/responseshttp.RestErr"
                         }
                     },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/responseshttp.RestErr"
+                        }
+                    },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
@@ -87,6 +93,56 @@ const docTemplate = `{
                     },
                     "400": {
                         "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/responseshttp.RestErr"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/responseshttp.RestErr"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/clients/{id}": {
+            "get": {
+                "description": "Busca um cliente pelo id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Busca um cliente pelo id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Id do cliente",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responseshttp.RestSuccess"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/responseshttp.RestErr"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/responseshttp.RestErr"
                         }
