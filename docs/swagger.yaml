@@ -3,10 +3,6 @@ definitions:
     properties:
       birth_date:
         type: string
-      health_problems:
-        items:
-          $ref: '#/definitions/request.CreateHealthProblemRequestDTO'
-        type: array
       name:
         type: string
       sexo:
@@ -113,7 +109,7 @@ paths:
             $ref: '#/definitions/responseshttp.RestErr'
       summary: Criar um novo cliente
       tags:
-      - client
+      - Clientes
   /api/v1/clients/{id}:
     get:
       consumes:
@@ -147,6 +143,43 @@ paths:
       summary: Busca um cliente pelo id
       tags:
       - Clientes
+  /api/v1/health-problems/{clientId}:
+    post:
+      consumes:
+      - application/json
+      description: Criar um prbolema de saúde
+      parameters:
+      - description: Client id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: HealthProblem body
+        in: body
+        name: HealthProblem
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/request.CreateHealthProblemRequestDTO'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Problema(s) de saúde criado(s) com sucesso
+          schema:
+            $ref: '#/definitions/responseshttp.RestSuccess'
+        "400":
+          description: Erro de validação
+          schema:
+            $ref: '#/definitions/responseshttp.RestErr'
+        "500":
+          description: Falha ao criar problema de saúde
+          schema:
+            $ref: '#/definitions/responseshttp.RestErr'
+      summary: Criar um prbolema de saúde
+      tags:
+      - HealthProblem
 schemes:
 - http
 swagger: "2.0"

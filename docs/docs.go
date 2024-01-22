@@ -70,7 +70,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "client"
+                    "Clientes"
                 ],
                 "summary": "Criar um novo cliente",
                 "parameters": [
@@ -155,6 +155,62 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/api/v1/health-problems/{clientId}": {
+            "post": {
+                "description": "Criar um prbolema de saúde",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HealthProblem"
+                ],
+                "summary": "Criar um prbolema de saúde",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Client id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "HealthProblem body",
+                        "name": "HealthProblem",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/request.CreateHealthProblemRequestDTO"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Problema(s) de saúde criado(s) com sucesso",
+                        "schema": {
+                            "$ref": "#/definitions/responseshttp.RestSuccess"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro de validação",
+                        "schema": {
+                            "$ref": "#/definitions/responseshttp.RestErr"
+                        }
+                    },
+                    "500": {
+                        "description": "Falha ao criar problema de saúde",
+                        "schema": {
+                            "$ref": "#/definitions/responseshttp.RestErr"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -163,12 +219,6 @@ const docTemplate = `{
             "properties": {
                 "birth_date": {
                     "type": "string"
-                },
-                "health_problems": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/request.CreateHealthProblemRequestDTO"
-                    }
                 },
                 "name": {
                     "type": "string"
