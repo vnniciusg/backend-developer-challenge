@@ -3,8 +3,6 @@ FROM golang:alpine AS build
 WORKDIR /app
 
 COPY . .
-COPY .env ./
-COPY ./database/migrations /app/database/migrations
 
 RUN go build -o main cmd/main.go
 
