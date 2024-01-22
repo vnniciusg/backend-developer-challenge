@@ -2,10 +2,10 @@ package clientusecase
 
 import (
 	"github.com/google/uuid"
-	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/entities"
+	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/dto/response"
 )
 
-func (cuc *ClientUseCase) FindClientById(id uuid.UUID) (*entities.Client, error) {
+func (cuc *ClientUseCase) FindClientById(id uuid.UUID) (*response.GetClientResponseDTO, error) {
 
 	client, err := cuc.clientRepository.FindClientById(id)
 
