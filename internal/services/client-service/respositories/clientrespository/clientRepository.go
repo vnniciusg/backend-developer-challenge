@@ -6,7 +6,7 @@ import (
 )
 
 type ClientRepository interface {
-	// FindAllClients() ([]*entities.Client, error)
+	FindAllClients() ([]*entities.Client, error)
 	// FindClientById(id uuid.UUID) (*entities.Client, error)
 	CreateClient(client *request.CreateClientRequestDTO) (*entities.Client, error)
 	// UpdateClient(client *entities.Client) (*entities.Client, error)

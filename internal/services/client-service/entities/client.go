@@ -11,7 +11,7 @@ type Client struct {
 	Name           string            `json:"name"`
 	BirthDate      time.Time         `json:"birth_date"`
 	Sexo           string            `json:"sexo"`
-	HealthProblems []*HealthProblems `json:"health_problems"`
+	HealthProblems []*HealthProblems `json:"health_problems,omitempty"`
 	CreatedAt      time.Time         `json:"created_at"`
 	UpdatedAt      time.Time         `json:"updated_at"`
 }

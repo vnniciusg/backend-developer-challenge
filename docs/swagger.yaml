@@ -14,8 +14,6 @@ definitions:
     type: object
   request.CreateHealthProblemRequestDTO:
     properties:
-      client_id:
-        type: string
       grau:
         type: integer
       name:
@@ -61,6 +59,28 @@ info:
   version: 0.0.1
 paths:
   /api/v1/clients:
+    get:
+      consumes:
+      - application/json
+      description: Busca todos os clientes
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responseshttp.RestSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responseshttp.RestErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/responseshttp.RestErr'
+      summary: Busca todos os clientes
+      tags:
+      - Clientes
     post:
       consumes:
       - application/json

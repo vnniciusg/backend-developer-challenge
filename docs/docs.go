@@ -22,6 +22,39 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/api/v1/clients": {
+            "get": {
+                "description": "Busca todos os clientes",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Busca todos os clientes",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responseshttp.RestSuccess"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/responseshttp.RestErr"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/responseshttp.RestErr"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "Criar um novo cliente",
                 "consumes": [
@@ -92,9 +125,6 @@ const docTemplate = `{
         "request.CreateHealthProblemRequestDTO": {
             "type": "object",
             "properties": {
-                "client_id": {
-                    "type": "string"
-                },
                 "grau": {
                     "type": "integer"
                 },

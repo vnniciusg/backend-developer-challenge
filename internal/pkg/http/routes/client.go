@@ -14,5 +14,6 @@ func ClientRoutes(conn *sql.DB, r *gin.RouterGroup) {
 	clientGroup := r.Group("/clients")
 
 	clientGroup.POST("", clientHandler.CreateClient)
+	clientGroup.GET("", clientHandler.FindAllClients)
 
 }
