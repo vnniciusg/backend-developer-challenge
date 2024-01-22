@@ -5,7 +5,6 @@ import (
 	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/http/responseshttp"
 )
 
-// FindAllClients godoc
 // @Summary Busca todos os clientes
 // @Description Busca todos os clientes
 // @Tags Clientes

@@ -9,7 +9,7 @@ import (
 
 // @Summary Criar um novo cliente
 // @Description Criar um novo cliente
-// @Tags client
+// @Tags Clientes
 // @Accept json
 // @Produce json
 // @Param client body request.CreateClientRequestDTO true "Client"

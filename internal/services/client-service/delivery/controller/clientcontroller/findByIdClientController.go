@@ -6,7 +6,6 @@ import (
 	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/http/responseshttp"
 )
 
-// FindClientById godoc
 // @Summary Busca um cliente pelo id
 // @Description Busca um cliente pelo id
 // @Tags Clientes
