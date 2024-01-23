@@ -2,31 +2,22 @@ definitions:
   request.CreateClientRequestDTO:
     properties:
       birth_date:
-        description: |-
-          Data de nascimento do cliente (Formato : dd-mm-yyyy)
-          required: true
-          example: 01-01-2003
+        example: 01-01-1990
         type: string
       name:
-        description: |-
-          Nome do cliente
-          required: true
-          min length: 3
-          max length: 255
-          example: John Doe
+        example: John Doe
+        maxLength: 255
+        minLength: 3
         type: string
       sexo:
-        description: |-
-          Sexo do cliente
-          required: true
-          enum: f, m
-          example: m
         enum:
         - f
         - m
+        example: m
         type: string
     required:
     - birth_date
+    - name
     - sexo
     type: object
   request.CreateHealthProblemRequestDTO:

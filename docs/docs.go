@@ -218,24 +218,27 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "birth_date",
+                "name",
                 "sexo"
             ],
             "properties": {
                 "birth_date": {
-                    "description": "Data de nascimento do cliente (Formato : dd-mm-yyyy)\nrequired: true\nexample: 01-01-2003",
-                    "type": "string"
+                    "type": "string",
+                    "example": "01-01-1990"
                 },
                 "name": {
-                    "description": "Nome do cliente\nrequired: true\nmin length: 3\nmax length: 255\nexample: John Doe",
-                    "type": "string"
+                    "type": "string",
+                    "maxLength": 255,
+                    "minLength": 3,
+                    "example": "John Doe"
                 },
                 "sexo": {
-                    "description": "Sexo do cliente\nrequired: true\nenum: f, m\nexample: m",
                     "type": "string",
                     "enum": [
                         "f",
                         "m"
-                    ]
+                    ],
+                    "example": "m"
                 }
             }
         },
