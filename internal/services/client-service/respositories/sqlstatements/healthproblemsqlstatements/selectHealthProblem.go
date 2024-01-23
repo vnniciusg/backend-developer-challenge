@@ -1,6 +1,6 @@
 package healthproblemsqlstatements
 
-const SelectHealthProblemById = `
+const SelectHealthProblemByClientId = `
 		SELECT
 			hp.id,
 			hp.name,

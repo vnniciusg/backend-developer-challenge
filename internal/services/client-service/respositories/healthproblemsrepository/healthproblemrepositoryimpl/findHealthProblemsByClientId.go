@@ -10,7 +10,7 @@ import (
 
 func (hpr *HealthProblemRepository) FindHealthProblemsByClientId(clientId uuid.UUID) ([]*entities.HealthProblems, error) {
 
-	row, err := hpr.DB.Query(healthproblemsqlstatements.SelectHealthProblemById, clientId)
+	row, err := hpr.DB.Query(healthproblemsqlstatements.SelectHealthProblemByClientId, clientId)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
