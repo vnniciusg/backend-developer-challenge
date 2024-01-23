@@ -2,11 +2,32 @@ definitions:
   request.CreateClientRequestDTO:
     properties:
       birth_date:
+        description: |-
+          Data de nascimento do cliente (Formato : dd-mm-yyyy)
+          required: true
+          example: 01-01-2003
         type: string
       name:
+        description: |-
+          Nome do cliente
+          required: true
+          min length: 3
+          max length: 255
+          example: John Doe
         type: string
       sexo:
+        description: |-
+          Sexo do cliente
+          required: true
+          enum: f, m
+          example: m
+        enum:
+        - f
+        - m
         type: string
+    required:
+    - birth_date
+    - sexo
     type: object
   request.CreateHealthProblemRequestDTO:
     properties:
@@ -84,9 +105,9 @@ paths:
     post:
       consumes:
       - application/json
-      description: Criar um novo cliente
+      description: Cria um novo cliente
       parameters:
-      - description: Client
+      - description: Estrutura de dados para criar um novo cliente
         in: body
         name: client
         required: true
@@ -96,15 +117,15 @@ paths:
       - application/json
       responses:
         "201":
-          description: Created
+          description: Cliente criado com sucesso
           schema:
             $ref: '#/definitions/responseshttp.RestSuccess'
         "400":
-          description: Bad Request
+          description: Erro ao processar a solicitação
           schema:
             $ref: '#/definitions/responseshttp.RestErr'
         "500":
-          description: Internal Server Error
+          description: Erro interno do servidor
           schema:
             $ref: '#/definitions/responseshttp.RestErr'
       summary: Criar um novo cliente

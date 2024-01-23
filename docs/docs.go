@@ -62,7 +62,7 @@ const docTemplate = `{
                 }
             },
             "post": {
-                "description": "Criar um novo cliente",
+                "description": "Cria um novo cliente",
                 "consumes": [
                     "application/json"
                 ],
@@ -75,7 +75,7 @@ const docTemplate = `{
                 "summary": "Criar um novo cliente",
                 "parameters": [
                     {
-                        "description": "Client",
+                        "description": "Estrutura de dados para criar um novo cliente",
                         "name": "client",
                         "in": "body",
                         "required": true,
@@ -86,19 +86,19 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "201": {
-                        "description": "Created",
+                        "description": "Cliente criado com sucesso",
                         "schema": {
                             "$ref": "#/definitions/responseshttp.RestSuccess"
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Erro ao processar a solicitação",
                         "schema": {
                             "$ref": "#/definitions/responseshttp.RestErr"
                         }
                     },
                     "500": {
-                        "description": "Internal Server Error",
+                        "description": "Erro interno do servidor",
                         "schema": {
                             "$ref": "#/definitions/responseshttp.RestErr"
                         }
@@ -216,15 +216,26 @@ const docTemplate = `{
     "definitions": {
         "request.CreateClientRequestDTO": {
             "type": "object",
+            "required": [
+                "birth_date",
+                "sexo"
+            ],
             "properties": {
                 "birth_date": {
+                    "description": "Data de nascimento do cliente (Formato : dd-mm-yyyy)\nrequired: true\nexample: 01-01-2003",
                     "type": "string"
                 },
                 "name": {
+                    "description": "Nome do cliente\nrequired: true\nmin length: 3\nmax length: 255\nexample: John Doe",
                     "type": "string"
                 },
                 "sexo": {
-                    "type": "string"
+                    "description": "Sexo do cliente\nrequired: true\nenum: f, m\nexample: m",
+                    "type": "string",
+                    "enum": [
+                        "f",
+                        "m"
+                    ]
                 }
             }
         },

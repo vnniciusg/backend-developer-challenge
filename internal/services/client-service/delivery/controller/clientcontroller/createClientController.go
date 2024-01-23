@@ -8,14 +8,14 @@ import (
 )
 
 // @Summary Criar um novo cliente
-// @Description Criar um novo cliente
+// @Description Cria um novo cliente
 // @Tags Clientes
 // @Accept json
 // @Produce json
-// @Param client body request.CreateClientRequestDTO true "Client"
-// @Success 201 {object} responseshttp.RestSuccess
-// @Failure 400 {object} responseshttp.RestErr
-// @Failure 500 {object} responseshttp.RestErr
+// @Param client body request.CreateClientRequestDTO true "Estrutura de dados para criar um novo cliente"
+// @Success 201 {object} responseshttp.RestSuccess "Cliente criado com sucesso"
+// @Failure 400 {object} responseshttp.RestErr "Erro ao processar a solicitação"
+// @Failure 500 {object} responseshttp.RestErr "Erro interno do servidor"
 // @Router /api/v1/clients [post]
 func (cc *ClientController) CreateClient(c *gin.Context) {
 
