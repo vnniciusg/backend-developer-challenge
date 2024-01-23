@@ -35,7 +35,7 @@ func (hpc *HealProblemsController) CreateHealthProblem(c *gin.Context) {
 		return
 	}
 
-	var request []*request.CreateHealthProblemRequestDTO
+	var request []request.CreateHealthProblemRequestDTO
 
 	if err := c.ShouldBindJSON(&request); err != nil {
 		restErr := responseshttp.NewBadRequestErr("Falha ao converter body")
@@ -43,12 +43,13 @@ func (hpc *HealProblemsController) CreateHealthProblem(c *gin.Context) {
 		return
 	}
 
-	validator := validator.ValidateDataRequest(request)
-
-	if validator != nil {
-		restErr := responseshttp.NewBadRequestValidationError("Erro de validação", validator)
-		c.JSON(restErr.Code, restErr)
-		return
+	for _, healthProblem := range request {
+		validator := validator.ValidateDataRequest(&healthProblem)
+		if validator != nil {
+			restErr := responseshttp.NewBadRequestValidationError("Erro de validação", validator)
+			c.JSON(restErr.Code, restErr)
+			return
+		}
 	}
 
 	err = hpc.healthProblemUseCase.CreateHealthProblem(clientId, request)

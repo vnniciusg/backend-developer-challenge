@@ -28,8 +28,8 @@ func (hpr *HealthProblemRepository) FindHealthProblemsByClientId(clientId uuid.U
 
 		err := row.Scan(
 			&healthProblem.Id,
-			&healthProblem.ClientId,
 			&healthProblem.Name,
+			&healthProblem.ClientId,
 			&healthProblem.Grau,
 			&healthProblem.CreatedAt,
 			&healthProblem.UpdatedAt,

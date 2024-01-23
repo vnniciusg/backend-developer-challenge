@@ -8,5 +8,5 @@ import (
 
 type HealthProblemsRepository interface {
 	FindHealthProblemsByClientId(clientId uuid.UUID) ([]*entities.HealthProblems, error)
-	CreateHealthProblem(clientId uuid.UUID, healthProblem []*request.CreateHealthProblemRequestDTO) error
+	CreateHealthProblem(clientId uuid.UUID, healthProblem []request.CreateHealthProblemRequestDTO) error
 }

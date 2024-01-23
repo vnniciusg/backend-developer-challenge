@@ -10,7 +10,7 @@ import (
 	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/respositories/sqlstatements/healthproblemsqlstatements"
 )
 
-func (hpr *HealthProblemRepository) CreateHealthProblem(clientId uuid.UUID, healthProblems []*request.CreateHealthProblemRequestDTO) error {
+func (hpr *HealthProblemRepository) CreateHealthProblem(clientId uuid.UUID, healthProblems []request.CreateHealthProblemRequestDTO) error {
 
 	err := utils.WithTransaction(hpr.DB, func(tx *sql.Tx) error {
 
@@ -31,7 +31,7 @@ func (hpr *HealthProblemRepository) CreateHealthProblem(clientId uuid.UUID, heal
 
 }
 
-func createHealthProblem(tx *sql.Tx, clientId uuid.UUID, healthProblem *request.CreateHealthProblemRequestDTO) error {
+func createHealthProblem(tx *sql.Tx, clientId uuid.UUID, healthProblem request.CreateHealthProblemRequestDTO) error {
 
 	created_at, err := date.GetCurrentTime()
 
