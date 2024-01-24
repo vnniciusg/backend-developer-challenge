@@ -27,6 +27,36 @@ definitions:
       name:
         type: string
     type: object
+  request.UpdateClientRequestDTO:
+    properties:
+      birth_date:
+        example: 01-01-1990
+        type: string
+      name:
+        example: John Doe
+        maxLength: 255
+        minLength: 3
+        type: string
+      sexo:
+        enum:
+        - f
+        - m
+        example: m
+        type: string
+    type: object
+  request.UpdateHealthProblemRequestDTO:
+    properties:
+      grau:
+        example: 1
+        maximum: 2
+        minimum: 1
+        type: integer
+      name:
+        example: Dor de cabeça
+        maxLength: 255
+        minLength: 3
+        type: string
+    type: object
   responseshttp.Causes:
     properties:
       field:
@@ -155,6 +185,40 @@ paths:
       summary: Busca um cliente pelo id
       tags:
       - Clientes
+    patch:
+      consumes:
+      - application/json
+      description: Atualizar um cliente pelo id
+      parameters:
+      - description: Client ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Cliente
+        in: body
+        name: cliente
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateClientRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Cliente atualizado com sucesso
+          schema:
+            $ref: '#/definitions/responseshttp.RestSuccess'
+        "400":
+          description: Erro de validação
+          schema:
+            $ref: '#/definitions/responseshttp.RestErr'
+        "500":
+          description: Falha ao criar cliente
+          schema:
+            $ref: '#/definitions/responseshttp.RestErr'
+      summary: Atualizar um cliente
+      tags:
+      - Clientes
   /api/v1/health-problems/{clientId}:
     post:
       consumes:
@@ -191,7 +255,42 @@ paths:
             $ref: '#/definitions/responseshttp.RestErr'
       summary: Criar um prbolema de saúde
       tags:
-      - HealthProblem
+      - Health Problem
+  /api/v1/health-problems/{id}:
+    patch:
+      consumes:
+      - application/json
+      description: Atualizar um problema de saúde pelo id
+      parameters:
+      - description: Health Problem ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Health Problem
+        in: body
+        name: healthProblem
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateHealthProblemRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Problema de saúde atualizado com sucesso
+          schema:
+            $ref: '#/definitions/responseshttp.RestSuccess'
+        "400":
+          description: Erro de validação
+          schema:
+            $ref: '#/definitions/responseshttp.RestErr'
+        "500":
+          description: Falha ao criar problema de saúde
+          schema:
+            $ref: '#/definitions/responseshttp.RestErr'
+      summary: Atualizar um problema de saúde
+      tags:
+      - Health Problem
 schemes:
 - http
 swagger: "2.0"
