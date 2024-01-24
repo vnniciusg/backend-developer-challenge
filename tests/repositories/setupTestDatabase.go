@@ -29,7 +29,7 @@ func NewSetupTestDatabase(db *sql.DB) *SetupTestDatabase {
 	return &SetupTestDatabase{DB: db}
 }
 
-func setupTestDB() *sql.DB {
+func SetupTestDB() *sql.DB {
 	testDB, err := sql.Open("postgres", "postgres://postgres:postgres@localhost:5432/clients?sslmode=disable")
 	if err != nil {
 		panic(err)
@@ -42,7 +42,7 @@ func setupTestDB() *sql.DB {
 	return testDB
 }
 
-func tearDownTestDB(testDB *sql.DB) {
+func TearDownTestDB(testDB *sql.DB) {
 	setupDB := NewSetupTestDatabase(testDB)
 	setupDB.TearDown()
 }
