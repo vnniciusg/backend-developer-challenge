@@ -11,7 +11,7 @@ import (
 	queryUtils "github.com/vnniciusg/backend-developer-challenge/utils"
 )
 
-func (hpr *HealthProblemRepository) UpdateHealthProblem(id uuid.UUID, healthProblem []request.UpdateHealthProblemRequestDTO) error {
+func (hpr *HealthProblemRepository) UpdateHealthProblem(id uuid.UUID, healthProblem request.UpdateHealthProblemRequestDTO) error {
 
 	err := utils.WithTransaction(hpr.DB, func(tx *sql.Tx) error {
 		err := utils.CheckEntityExists(hpr.DB, "SELECT id FROM tb_health_problems WHERE id = $1", id, utils.HealthProblem)
@@ -19,21 +19,16 @@ func (hpr *HealthProblemRepository) UpdateHealthProblem(id uuid.UUID, healthProb
 			return err
 		}
 
-		for _, hp := range healthProblem {
+		query, args := buildHealthProblemUpdateQuery(id, healthProblem)
 
-			query, args := buildHealthProblemUpdateQuery(id, hp)
+		_, err = tx.Exec(query, args...)
 
-			_, err := tx.Exec(query, args...)
-
-			if err != nil {
-				return err
-			}
-
-			return nil
-
+		if err != nil {
+			return err
 		}
 
 		return nil
+
 	})
 
 	return err
