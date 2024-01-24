@@ -14,5 +14,6 @@ func HealthProblemRoutes(conn *sql.DB, r *gin.RouterGroup) {
 	healthProblemGroup := r.Group("/health-problems")
 
 	healthProblemGroup.POST("/:clientId", healthProblemHandler.CreateHealthProblem)
+	healthProblemGroup.PATCH("/:id", healthProblemHandler.UpdateHealthProblem)
 
 }
