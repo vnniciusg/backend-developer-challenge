@@ -10,7 +10,7 @@ import (
 
 // @Summary Criar um prbolema de saúde
 // @Description Criar um prbolema de saúde
-// @Tags HealthProblem
+// @Tags Health Problem
 // @Accept  json
 // @Produce  json
 // @Param id path string true "Client id"
