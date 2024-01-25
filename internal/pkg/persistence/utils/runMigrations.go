@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"database/sql"
 	"fmt"
 	"log"
 	"path/filepath"
@@ -10,11 +11,10 @@ import (
 	"github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 
-	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/persistence"
 	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/viper/configs"
 )
 
-func RunMigrations() {
+func RunMigrations(db *sql.DB) {
 
 	migrationPath := filepath.Join("database", "migrations")
 
@@ -24,8 +24,6 @@ func RunMigrations() {
 		log.Println(err)
 		return
 	}
-
-	db, err := persistence.GetConnection()
 
 	if err != nil {
 		log.Fatalf("ERROR ON GET CONNECTION: %s", err)

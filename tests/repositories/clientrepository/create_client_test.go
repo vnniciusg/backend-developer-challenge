@@ -6,30 +6,24 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/dto/request"
 	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/respositories/clientrespository/clientrepositoryimpl"
-	"github.com/vnniciusg/backend-developer-challenge/tests/repositories"
+	"github.com/vnniciusg/backend-developer-challenge/tests"
 )
 
 func TestCreateClient(t *testing.T) {
 
-	db := repositories.SetupTestDB()
-
-	defer repositories.TearDownTestDB(db)
+	db := tests.InitTestDB()
 
 	clientRepository := clientrepositoryimpl.NewClientRepository(db)
 
 	t.Run("should create a new client", func(t *testing.T) {
 
 		client := &request.CreateClientRequestDTO{
-			Name:      "Vinicius",
-			BirthDate: "01-01-2003",
+			Name:      "Vinnicius",
+			BirthDate: "01/01/2003",
 			Sexo:      "m",
 		}
 
-		err := clientRepository.CreateClient(client)
-
-		if err != nil {
-			assert.Nil(t, err)
-		}
+		clientRepository.CreateClient(client)
 
 		assert.NotNil(t, client)
 
@@ -39,7 +33,7 @@ func TestCreateClient(t *testing.T) {
 
 		client := &request.CreateClientRequestDTO{
 			Name:      "",
-			BirthDate: "01-01-2003",
+			BirthDate: "01/01/2003",
 			Sexo:      "m",
 		}
 

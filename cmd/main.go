@@ -31,7 +31,7 @@ func main() {
 
 	defer conn.Close()
 
-	utils.RunMigrations()
+	utils.RunMigrations(conn)
 
 	router := gin.Default()
 
