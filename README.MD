@@ -6,7 +6,7 @@
   <a href="#documentation">Documentation</a> 
 </p>
 
-<p align="center">
+<p align="start">
     <b>I undertook this challenge with an educational purpose to enhance my skills in Go programming language and improve my understanding of architecture and containers.</b>
 </p>
 
