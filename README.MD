@@ -54,6 +54,5 @@ TEST_DB_HOST=db_test
 How to start your project
 
 ```bash
-cd project-name
-npm some-command-to-run
+docker-compose up
 ```
