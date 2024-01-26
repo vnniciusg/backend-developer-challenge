@@ -5,6 +5,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/http/responseshttp"
 	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/dto/request"
+	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/entities"
 )
 
 // @Summary Atualizar um problema de saúde
@@ -38,12 +39,14 @@ func (hpc *HealProblemsController) UpdateHealthProblem(c *gin.Context) {
 	}
 
 	if err != nil {
-		restErr := responseshttp.NewBadRequestErr(err.Error())
+		restErr := responseshttp.NewInternalServerError(err.Error())
 		c.JSON(restErr.Code, restErr)
 		return
 	}
 
-	err = hpc.healthProblemUseCase.UpdateHealthProblem(id, request)
+	healthProblem := entities.NewHealthProblems(request.Name, id, request.Grau)
+
+	err = hpc.healthProblemUseCase.UpdateHealthProblem(healthProblem)
 
 	if err != nil {
 		restErr := responseshttp.NewInternalServerError(err.Error())

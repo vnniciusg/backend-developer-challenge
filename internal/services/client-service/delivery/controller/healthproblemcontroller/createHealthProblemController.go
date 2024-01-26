@@ -6,6 +6,7 @@ import (
 	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/http/responseshttp"
 	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/validator"
 	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/dto/request"
+	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/entities"
 )
 
 // @Summary Criar um prbolema de saúde
@@ -43,16 +44,17 @@ func (hpc *HealProblemsController) CreateHealthProblem(c *gin.Context) {
 		return
 	}
 
+	var healthProblems []*entities.HealthProblems
 	for _, healthProblem := range request {
-		validator := validator.ValidateDataRequest(&healthProblem)
-		if validator != nil {
-			restErr := responseshttp.NewBadRequestValidationError("Erro de validação", validator)
-			c.JSON(restErr.Code, restErr)
+		newHealthProblem, err := validateAndConvertHealthProblemEntityRequest(clientId, &healthProblem)
+		if err != nil {
+			c.JSON(err.Code, err)
 			return
 		}
+		healthProblems = append(healthProblems, newHealthProblem)
 	}
 
-	err = hpc.healthProblemUseCase.CreateHealthProblem(clientId, request)
+	err = hpc.healthProblemUseCase.CreateHealthProblem(healthProblems)
 
 	if err != nil {
 		restErr := responseshttp.NewInternalServerError("Falha ao criar problema de saúde")
@@ -63,4 +65,16 @@ func (hpc *HealProblemsController) CreateHealthProblem(c *gin.Context) {
 	restSuccess := responseshttp.NewCreated("Problema(s) de saúde criado(s) com sucesso", nil)
 	c.JSON(restSuccess.Code, restSuccess)
 
+}
+
+func validateAndConvertHealthProblemEntityRequest(id uuid.UUID, request *request.CreateHealthProblemRequestDTO) (*entities.HealthProblems, *responseshttp.RestErr) {
+
+	validator := validator.ValidateDataRequest(request)
+	if validator != nil {
+		return nil, responseshttp.NewBadRequestValidationError("Erro de validação", validator)
+	}
+
+	healthProblem := entities.NewHealthProblems(request.Name, id, request.Grau)
+
+	return healthProblem, nil
 }
