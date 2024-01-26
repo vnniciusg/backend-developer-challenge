@@ -1,13 +1,12 @@
 package healthproblemusecase
 
 import (
-	"github.com/google/uuid"
-	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/dto/request"
+	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/entities"
 )
 
-func (hpuc *HealthProblemUseCase) CreateHealthProblem(clientId uuid.UUID, healthProblem []request.CreateHealthProblemRequestDTO) error {
+func (hpuc *HealthProblemUseCase) CreateHealthProblem(healthProblems []*entities.HealthProblems) error {
 
-	err := hpuc.healthProblemRepository.CreateHealthProblem(clientId, healthProblem)
+	err := hpuc.healthProblemRepository.CreateHealthProblem(healthProblems)
 
 	if err != nil {
 		return err
