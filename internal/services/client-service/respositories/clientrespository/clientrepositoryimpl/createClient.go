@@ -2,27 +2,25 @@ package clientrepositoryimpl
 
 import (
 	"database/sql"
-	"errors"
-
 	"time"
 
 	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/date"
 	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/persistence/utils"
-	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/dto/request"
+	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/entities"
 	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/respositories/sqlstatements/clientsqlstatements"
 )
 
-func (cr *ClientRepository) CreateClient(client *request.CreateClientRequestDTO) error {
+func (cr *ClientRepository) CreateClient(client *entities.Client) error {
 
 	err := utils.WithTransaction(cr.DB, func(tx *sql.Tx) error {
 
-		birthDate, err := date.ParseDate(client.BirthDate)
+		err := entities.ValidateClient(client)
 
 		if err != nil {
-			return errors.New("Falha ao converter data de nascimento")
+			return err
 		}
 
-		err = insertClient(tx, client.Name, birthDate, client.Sexo)
+		err = insertClient(tx, client.Name, client.BirthDate, client.Sexo)
 
 		if err != nil {
 			return err
