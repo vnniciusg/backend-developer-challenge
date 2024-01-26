@@ -3,7 +3,7 @@
 <p align="center">
  <a href="#tech">Technologies</a> • 
  <a href="#started">Getting Started</a> • 
-  <a href="#documentation">Documentation</a> •
+  <a href="#documentation">Documentation</a> 
 </p>
 
 <p align="center">
@@ -56,4 +56,8 @@ docker-compose up
 ```
 
 
-<h3>📚Documentation</h3>
+<h2 id="documentation">📚Documentation</h2>
+
+Explore the API using Swagger [here](http://localhost:8080/api/v1/docs/index.html#/)
+
+
