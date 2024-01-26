@@ -1,12 +1,11 @@
 package clientusecase
 
 import (
-	"github.com/google/uuid"
-	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/dto/request"
+	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/entities"
 )
 
-func (cuc *ClientUseCase) UpdateClient(id uuid.UUID, client *request.UpdateClientRequestDTO) error {
-	err := cuc.UpdateClient(id, client)
+func (cuc *ClientUseCase) UpdateClient(client *entities.Client) error {
+	err := cuc.UpdateClient(client)
 
 	if err != nil {
 		return err
