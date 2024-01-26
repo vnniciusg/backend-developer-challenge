@@ -14,7 +14,6 @@
 
 <h2 id="technologies">💻 Technologies</h2>
 
-- list of all technologies you used
 - Golang
 - Docker
 - PostgreSQL
