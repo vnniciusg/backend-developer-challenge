@@ -3,8 +3,10 @@ package clientcontroller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/date"
 	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/http/responseshttp"
 	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/dto/request"
+	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/entities"
 )
 
 // @Summary Atualizar um cliente
@@ -44,7 +46,17 @@ func (cc *ClientController) UpdateClient(c *gin.Context) {
 		return
 	}
 
-	err = cc.clientUseCase.UpdateClient(id, request)
+	parsedBirthDate, err := date.ParseDate(request.BirthDate)
+
+	if err != nil {
+		restErr := responseshttp.NewInternalServerError(err.Error())
+		c.JSON(restErr.Code, restErr)
+		return
+	}
+
+	client := entities.NewClient(request.Name, parsedBirthDate, request.Sexo)
+
+	err = cc.clientUseCase.UpdateClient(client)
 
 	if err != nil {
 		restErr := responseshttp.NewInternalServerError(err.Error())

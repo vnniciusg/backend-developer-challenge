@@ -2,9 +2,11 @@ package clientcontroller
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/date"
 	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/http/responseshttp"
 	"github.com/vnniciusg/backend-developer-challenge/internal/pkg/validator"
 	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/dto/request"
+	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/entities"
 )
 
 // @Summary Criar um novo cliente
@@ -37,7 +39,17 @@ func (cc *ClientController) CreateClient(c *gin.Context) {
 		return
 	}
 
-	err = cc.clientUseCase.CreateClient(request)
+	parsedBirthDate, err := date.ParseDate(request.BirthDate)
+
+	if err != nil {
+		restError := responseshttp.NewInternalServerError("Erro ao converter data de nascimento")
+		c.JSON(restError.Code, restError)
+		return
+	}
+
+	newClient := entities.NewClient(request.Name, parsedBirthDate, request.Sexo)
+
+	err = cc.clientUseCase.CreateClient(newClient)
 
 	if err != nil {
 		restError := responseshttp.NewInternalServerError("Erro ao criar cliente")
