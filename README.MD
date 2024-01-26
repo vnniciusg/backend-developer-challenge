@@ -26,7 +26,7 @@
 <h3>Cloning</h3>
 
 ```bash
-git clone your-project-url-in-github
+git clone https://github.com/vnniciusg/backend-developer-challenge.git
 ```
 
 <h3>Config .env variables</h2>
