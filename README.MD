@@ -49,7 +49,7 @@ TEST_DB_HOST=db_test
 ```
 
 
-h3>Starting</h3>
+<h3>Starting</h3>
 
 How to start your project
 
