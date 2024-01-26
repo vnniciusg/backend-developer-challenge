@@ -44,3 +44,12 @@ TEST_DB_NAME=YOUR_TEST_DB_NAME
 TEST_DB_PORT=5433
 TEST_DB_HOST=db_test
 ```
+
+h3>Starting</h3>
+
+How to start your project
+
+```bash
+cd project-name
+npm some-command-to-run
+```
