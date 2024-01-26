@@ -1,0 +1,47 @@
+<h1 align="center" style="font-weight: bold;">Project name 💻</h1>
+
+<p align="center">
+ <a href="#tech">Technologies</a> • 
+ <a href="#started">Getting Started</a> • 
+  <a href="#routes">API Endpoints</a> •
+ <a href="#colab">Collaborators</a> •
+ <a href="#contribute">Contribute</a>
+</p>
+
+<p align="center">
+    <b>I undertook this challenge with an educational purpose to enhance my skills in Go programming language and improve my understanding of architecture and containers.</b>
+</p>
+
+<h2 id="technologies">💻 Technologies</h2>
+
+- list of all technologies you used
+- Golang
+- Docker
+- PostgreSQL
+
+<h2 id="started">🚀 Getting started</h2>
+
+<h3>Prerequisites</h3>
+- Docker
+
+<h3>Cloning</h3>
+
+```bash
+git clone your-project-url-in-github
+```
+
+<h3>Config .env variables</h2>
+```yaml
+DB_USER=YOUR_DB_USER
+DB_PASS=YOUR_DB_PASS
+DB_NAME=YOUR_DB_NAME
+DB_PORT=5432
+DB_HOST=db
+DB_DRIVER=postgres
+
+TEST_DB_USER=YOUR_TEST_DB_USER
+TEST_DB_PASS=YOUR_TEST_DB_PASS
+TEST_DB_NAME=YOUR_TEST_DB_NAME
+TEST_DB_PORT=5433
+TEST_DB_HOST=db_test
+```
