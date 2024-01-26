@@ -31,7 +31,7 @@ git clone https://github.com/vnniciusg/backend-developer-challenge.git
 
 <h3>Config .env variables</h2>
 
-Use the `.env.example` as reference to create your configuration file `.env` with your AWS Credentials
+Use the `.env.example` as reference to create your configuration file `.env` 
 
 ```yaml
 DB_USER=YOUR_DB_USER
