@@ -29,12 +29,19 @@ func ValidateClient(client *Client) error {
 		return errors.New("Nome do cliente não pode ser vazio")
 	}
 
-	if client.Sexo == "" {
-		return errors.New("Sexo do cliente não pode ser vazio")
+	if client.Sexo != "m" && client.Sexo != "f" {
+		if client.Sexo == "" {
+			return errors.New("Sexo do cliente não pode ser vazio")
+		}
+		return errors.New("Sexo do cliente deve ser 'm' ou 'f'")
 	}
 
 	if client.BirthDate.IsZero() {
 		return errors.New("Data de nascimento do cliente não pode ser vazio")
+	}
+
+	if client.BirthDate.After(time.Now()) {
+		return errors.New("Data de nascimento do cliente não pode ser maior que a data atual")
 	}
 
 	return nil
