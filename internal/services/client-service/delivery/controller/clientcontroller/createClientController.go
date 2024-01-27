@@ -39,7 +39,7 @@ func (cc *ClientController) CreateClient(c *gin.Context) {
 		return
 	}
 
-	birthDate, err := date.ParseDate(request.BirthDate)
+	parsedBirthDate, err := date.ParseDate(request.BirthDate)
 
 	if err != nil {
 		restError := responseshttp.NewInternalServerError(err.Error())
@@ -47,13 +47,7 @@ func (cc *ClientController) CreateClient(c *gin.Context) {
 		return
 	}
 
-	newClient := entities.NewClient(request.Name, birthDate, request.Sexo)
-
-	if err != nil {
-		restError := responseshttp.NewBadRequestErr(err.Error())
-		c.JSON(restError.Code, restError)
-		return
-	}
+	newClient := entities.NewClient(request.Name, parsedBirthDate, request.Sexo)
 
 	err = cc.clientUseCase.CreateClient(newClient)
 
