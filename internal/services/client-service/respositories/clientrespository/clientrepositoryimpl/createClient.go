@@ -14,13 +14,7 @@ func (cr *ClientRepository) CreateClient(client *entities.Client) error {
 
 	err := utils.WithTransaction(cr.DB, func(tx *sql.Tx) error {
 
-		err := entities.ValidateClient(client)
-
-		if err != nil {
-			return err
-		}
-
-		err = insertClient(tx, client.Name, client.BirthDate, client.Sexo)
+		err := insertClient(tx, client.Name, client.BirthDate, client.Sexo)
 
 		if err != nil {
 			return err
