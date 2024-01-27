@@ -39,15 +39,21 @@ func (cc *ClientController) CreateClient(c *gin.Context) {
 		return
 	}
 
-	parsedBirthDate, err := date.ParseDate(request.BirthDate)
+	birthDate, err := date.ParseDate(request.BirthDate)
 
 	if err != nil {
-		restError := responseshttp.NewInternalServerError("Erro ao converter data de nascimento")
+		restError := responseshttp.NewInternalServerError(err.Error())
 		c.JSON(restError.Code, restError)
 		return
 	}
 
-	newClient := entities.NewClient(request.Name, parsedBirthDate, request.Sexo)
+	newClient := entities.NewClient(request.Name, birthDate, request.Sexo)
+
+	if err != nil {
+		restError := responseshttp.NewBadRequestErr(err.Error())
+		c.JSON(restError.Code, restError)
+		return
+	}
 
 	err = cc.clientUseCase.CreateClient(newClient)
 
