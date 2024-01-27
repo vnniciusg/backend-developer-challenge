@@ -6,7 +6,7 @@ import (
 )
 
 type HealthProblemsRepository interface {
-	FindHealthProblemsByClientId(clientId uuid.UUID) ([]*entities.HealthProblems, error)
-	CreateHealthProblem(client []*entities.HealthProblems) error
-	UpdateHealthProblem(client *entities.HealthProblems) error
+	FindHealthProblemsByClientId(clientId uuid.UUID) ([]*entities.HealthProblem, error)
+	CreateHealthProblem(client []*entities.HealthProblem) error
+	UpdateHealthProblem(client *entities.HealthProblem) error
 }

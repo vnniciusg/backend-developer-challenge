@@ -4,7 +4,7 @@ import (
 	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/entities"
 )
 
-func (hpuc *HealthProblemUseCase) CreateHealthProblem(healthProblems []*entities.HealthProblems) error {
+func (hpuc *HealthProblemUseCase) CreateHealthProblem(healthProblems []*entities.HealthProblem) error {
 
 	err := hpuc.healthProblemRepository.CreateHealthProblem(healthProblems)
 

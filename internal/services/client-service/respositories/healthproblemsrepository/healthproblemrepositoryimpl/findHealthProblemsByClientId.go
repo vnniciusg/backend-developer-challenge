@@ -8,7 +8,7 @@ import (
 	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/respositories/sqlstatements/healthproblemsqlstatements"
 )
 
-func (hpr *HealthProblemRepository) FindHealthProblemsByClientId(clientId uuid.UUID) ([]*entities.HealthProblems, error) {
+func (hpr *HealthProblemRepository) FindHealthProblemsByClientId(clientId uuid.UUID) ([]*entities.HealthProblem, error) {
 
 	row, err := hpr.DB.Query(healthproblemsqlstatements.SelectHealthProblemByClientId, clientId)
 
@@ -21,10 +21,10 @@ func (hpr *HealthProblemRepository) FindHealthProblemsByClientId(clientId uuid.U
 
 	defer row.Close()
 
-	var healthProblems []*entities.HealthProblems
+	var healthProblems []*entities.HealthProblem
 
 	for row.Next() {
-		healthProblem := &entities.HealthProblems{}
+		healthProblem := &entities.HealthProblem{}
 
 		err := row.Scan(
 			&healthProblem.Id,

@@ -10,7 +10,7 @@ import (
 	queryUtils "github.com/vnniciusg/backend-developer-challenge/utils"
 )
 
-func (hpr *HealthProblemRepository) UpdateHealthProblem(healthProblem *entities.HealthProblems) error {
+func (hpr *HealthProblemRepository) UpdateHealthProblem(healthProblem *entities.HealthProblem) error {
 
 	err := utils.WithTransaction(hpr.DB, func(tx *sql.Tx) error {
 		err := utils.CheckEntityExists(hpr.DB, "SELECT id FROM tb_health_problems WHERE id = $1", healthProblem.Id, utils.HealthProblem)
@@ -34,7 +34,7 @@ func (hpr *HealthProblemRepository) UpdateHealthProblem(healthProblem *entities.
 
 }
 
-func buildHealthProblemUpdateQuery(healthProblem *entities.HealthProblems) (string, []interface{}) {
+func buildHealthProblemUpdateQuery(healthProblem *entities.HealthProblem) (string, []interface{}) {
 
 	var query string
 	var args []interface{}

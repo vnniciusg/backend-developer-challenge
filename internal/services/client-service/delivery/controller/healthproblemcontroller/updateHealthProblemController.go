@@ -44,7 +44,7 @@ func (hpc *HealProblemsController) UpdateHealthProblem(c *gin.Context) {
 		return
 	}
 
-	healthProblem := entities.NewHealthProblems(request.Name, id, request.Grau)
+	healthProblem := entities.NewHealthProblem(request.Name, id, request.Grau)
 
 	err = hpc.healthProblemUseCase.UpdateHealthProblem(healthProblem)
 

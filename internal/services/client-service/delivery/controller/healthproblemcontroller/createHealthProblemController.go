@@ -44,7 +44,7 @@ func (hpc *HealProblemsController) CreateHealthProblem(c *gin.Context) {
 		return
 	}
 
-	var healthProblems []*entities.HealthProblems
+	var healthProblems []*entities.HealthProblem
 	for _, healthProblem := range request {
 		newHealthProblem, err := validateAndConvertHealthProblemEntityRequest(clientId, &healthProblem)
 		if err != nil {
@@ -67,14 +67,14 @@ func (hpc *HealProblemsController) CreateHealthProblem(c *gin.Context) {
 
 }
 
-func validateAndConvertHealthProblemEntityRequest(id uuid.UUID, request *request.CreateHealthProblemRequestDTO) (*entities.HealthProblems, *responseshttp.RestErr) {
+func validateAndConvertHealthProblemEntityRequest(id uuid.UUID, request *request.CreateHealthProblemRequestDTO) (*entities.HealthProblem, *responseshttp.RestErr) {
 
 	validator := validator.ValidateDataRequest(request)
 	if validator != nil {
 		return nil, responseshttp.NewBadRequestValidationError("Erro de validação", validator)
 	}
 
-	healthProblem := entities.NewHealthProblems(request.Name, id, request.Grau)
+	healthProblem := entities.NewHealthProblem(request.Name, id, request.Grau)
 
 	return healthProblem, nil
 }

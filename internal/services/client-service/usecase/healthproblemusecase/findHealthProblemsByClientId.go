@@ -5,7 +5,7 @@ import (
 	"github.com/vnniciusg/backend-developer-challenge/internal/services/client-service/entities"
 )
 
-func (hpuc *HealthProblemUseCase) FindHealthProblemsByClientId(clientId uuid.UUID) ([]*entities.HealthProblems, error) {
+func (hpuc *HealthProblemUseCase) FindHealthProblemsByClientId(clientId uuid.UUID) ([]*entities.HealthProblem, error) {
 
 	healthProblems, err := hpuc.healthProblemRepository.FindHealthProblemsByClientId(clientId)
 
